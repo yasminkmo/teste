@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocolo 21D - Clareamento Total em 21 Dias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --dark: #1A1A1A;
+      --off-white: #FDF8F2; --cream: #F5ECD7; --text: #2E2E2E; --muted: #6B6B6B;
+      --wine: #7B2D3E;
+    }
+    body { font-family: 'Lato', sans-serif; background: #fff; color: var(--text); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .gold-divider { height: 6px; background: linear-gradient(90deg, transparent, var(--gold), transparent); border: none; }
+    .bege-divider { height: 8px; background: var(--cream); border: none; }
+    .container { max-width: 760px; margin: 0 auto; }
+
+    /* HERO */
+    .hero { background: var(--off-white); padding: 48px 20px; text-align: center; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 5vw, 48px); font-weight: 900; color: var(--wine); line-height: 1.2; margin-bottom: 28px; }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero-checks { list-style: none; display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto 32px; text-align: left; }
+    .hero-checks li { font-size: clamp(16px, 2.5vw, 20px); font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+    .hero-checks li::before { content: "✅"; font-size: 20px; }
+    .hero-img { max-width: 480px; margin: 0 auto; border-radius: 16px; overflow: hidden; }
+    .hero-img img { width: 100%; }
+
+    /* HEADLINE MELASMA */
+    .headline-main { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 40px); font-weight: 900; text-align: center; color: var(--dark); padding: 40px 20px 20px; line-height: 1.2; }
+    .headline-main em { color: var(--gold); font-style: normal; }
+    .badge-line { text-align: center; font-size: clamp(24px, 5vw, 46px); font-weight: 900; font-family: 'Playfair Display', serif; color: var(--dark); padding: 8px 20px; }
+
+    /* PROBLEMA */
+    .problem-section { background: var(--dark); padding: 48px 20px; text-align: center; }
+    .problem-section h2 { color: #fff; font-family: 'Playfair Display', serif; font-size: clamp(18px, 3.5vw, 32px); margin-bottom: 20px; line-height: 1.3; }
+    .problem-section p { color: #ccc; font-size: clamp(15px, 2.5vw, 20px); max-width: 680px; margin: 0 auto 16px; }
+    .problem-section strong { color: var(--gold); }
+
+    /* ANTES E DEPOIS */
+    .ba-section { background: var(--off-white); padding: 48px 20px; text-align: center; }
+    .ba-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 4vw, 32px); margin-bottom: 8px; color: var(--dark); }
+    .ba-section h2 strong { color: var(--gold); }
+    .ba-section .ba-sub { font-size: clamp(15px, 2.2vw, 18px); color: var(--gold); font-weight: 900; margin-bottom: 32px; }
+    .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 800px; margin: 0 auto 16px; }
+    .ba-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 600px; margin: 0 auto 32px; }
+    .ba-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .ba-card img { width: 100%; height: 260px; object-fit: cover; }
+    .ba-card p { padding: 12px; font-weight: 700; font-size: 14px; color: var(--dark); }
+    .ba-count { font-size: clamp(18px, 3vw, 26px); font-weight: 900; color: var(--gold); margin: 16px 0 8px; }
+    .ba-section-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 3vw, 26px); color: var(--wine); font-weight: 900; margin: 40px 0 20px; }
+
+    /* DOR */
+    .pain-section { background: var(--cream); padding: 48px 20px; text-align: center; }
+    .pain-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 36px); color: var(--wine); margin-bottom: 16px; font-weight: 900; }
+    .pain-section p { font-size: clamp(15px, 2.5vw, 20px); color: var(--dark); max-width: 600px; margin: 0 auto 28px; }
+    .pain-image { max-width: 420px; margin: 0 auto; border-radius: 16px; overflow: hidden; }
+
+    /* PONTE */
+    .bridge-section { background: var(--off-white); padding: 48px 20px; text-align: center; }
+    .bridge-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 4vw, 32px); margin-bottom: 16px; color: var(--dark); }
+    .bridge-section h2 em { color: var(--gold); font-style: normal; }
+    .bridge-section .answer-box { background: var(--dark); color: #fff; border-radius: 12px; padding: 24px 32px; max-width: 560px; margin: 0 auto 24px; font-size: clamp(18px, 3vw, 26px); font-weight: 900; font-family: 'Playfair Display', serif; }
+    .bridge-section p { font-size: clamp(16px, 2.5vw, 22px); color: var(--dark); font-weight: 700; }
+
+    /* PASSOS */
+    .steps-intro { text-align: center; padding: 48px 20px 20px; max-width: 760px; margin: 0 auto; }
+    .steps-intro h2 { font-size: clamp(16px, 2.5vw, 22px); color: var(--muted); font-weight: 400; margin-bottom: 10px; }
+    .steps-intro h3 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 34px); color: var(--dark); }
+    .steps-intro h3 em { color: var(--gold); font-style: normal; }
+    .step-card { display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 680px; margin: 0 auto 48px; text-align: center; padding: 0 20px; }
+    .step-card img { width: 100%; max-width: 380px; border-radius: 16px; object-fit: cover; }
+    .step-card h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3.5vw, 28px); color: var(--dark); }
+    .step-card h2 strong { color: var(--gold); }
+    .step-card p { font-size: clamp(15px, 2.2vw, 18px); color: var(--muted); max-width: 500px; }
+    .step-timeline { list-style: none; text-align: left; font-size: clamp(15px, 2.2vw, 18px); font-weight: 700; color: var(--dark); display: flex; flex-direction: column; gap: 10px; }
+    .step-timeline li::before { content: "➡️ "; }
+
+    /* O QUE RECEBE */
+    .offer-section { background: var(--off-white); padding: 48px 20px; text-align: center; }
+    .offer-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 4vw, 32px); margin-bottom: 8px; color: var(--dark); }
+    .offer-section .sub { font-size: clamp(15px, 2.2vw, 18px); color: var(--muted); margin-bottom: 32px; }
+    .offer-images { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 480px; margin: 0 auto; }
+    .offer-images img { width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+    /* BÔNUS */
+    .bonus-section { background: var(--dark); padding: 48px 20px; text-align: center; }
+    .bonus-section h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: clamp(22px, 4vw, 34px); margin-bottom: 8px; }
+    .bonus-section .sub { color: #ccc; font-size: clamp(15px, 2.2vw, 18px); margin-bottom: 32px; }
+    .bonus-images { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 480px; margin: 0 auto; }
+    .bonus-images img { width: 100%; border-radius: 10px; }
+
+    /* ESPECIALISTA */
+    .expert-section { background: #fff; padding: 48px 20px; }
+    .expert-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 680px; margin: 0 auto; text-align: center; }
+    .expert-inner img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid var(--gold); }
+    .expert-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3.5vw, 28px); color: var(--dark); margin-bottom: 4px; }
+    .expert-inner h3 { font-size: clamp(13px, 1.8vw, 16px); color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .expert-inner p { font-size: clamp(14px, 2vw, 17px); color: var(--muted); line-height: 1.7; }
+
+    /* PREÇO */
+    .price-section { background: var(--cream); padding: 48px 20px; text-align: center; }
+    .price-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3.5vw, 28px); margin-bottom: 16px; line-height: 1.3; }
+    .price-section .strike { font-size: clamp(16px, 2.5vw, 20px); color: var(--muted); margin-bottom: 12px; }
+    .price-recap-img { max-width: 480px; margin: 0 auto 28px; }
+    .price-recap-img img { width: 100%; border-radius: 12px; }
+    .price-box { background: var(--dark); color: #fff; border-radius: 16px; padding: 32px 24px; max-width: 400px; margin: 0 auto 28px; }
+    .price-box .installment { font-size: clamp(28px, 6vw, 48px); font-weight: 900; color: var(--gold); font-family: 'Playfair Display', serif; }
+    .price-box .full-price { font-size: clamp(15px, 2.2vw, 18px); color: #ccc; margin-top: 6px; }
+    .price-box .lifetime { margin-top: 16px; font-size: 16px; font-weight: 900; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; line-height: 1.5; }
+
+    /* CTA */
+    .cta-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #000; font-weight: 900; font-size: clamp(16px, 2.5vw, 20px); padding: 18px 40px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 24px rgba(201,168,76,0.45); transition: transform 0.2s, box-shadow 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,168,76,0.55); }
+
+    /* ACESSO */
+    .access-section { background: #fff; padding: 48px 20px; }
+    .access-section h2 { font-family: 'Playfair Display', serif; text-align: center; font-size: clamp(20px, 3.5vw, 30px); margin-bottom: 40px; color: var(--dark); }
+    .access-section h2 strong { color: var(--gold); }
+    .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 760px; margin: 0 auto; }
+    .access-step { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .access-step svg { width: 72px; height: 72px; }
+    .access-step h3 { font-size: 17px; font-weight: 900; color: var(--dark); }
+    .access-step p { font-size: 14px; color: var(--muted); }
+
+    /* SEGUNDO CTA */
+    .second-cta { background: var(--dark); padding: 48px 20px; text-align: center; }
+    .second-cta .price-box { margin-bottom: 28px; }
+
+    /* FAQ */
+    .faq-section { background: var(--off-white); padding: 48px 20px; }
+    .faq-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 32px); text-align: center; margin-bottom: 32px; color: var(--dark); }
+    .faq-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    details { background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer; }
+    details[open] { border-left: 4px solid var(--gold); }
+    summary { font-size: clamp(15px, 2.2vw, 17px); font-weight: 700; color: var(--dark); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary::after { content: "＋"; color: var(--gold); font-size: 20px; }
+    details[open] summary::after { content: "−"; }
+    details p { margin-top: 14px; font-size: clamp(14px, 2vw, 16px); color: var(--muted); line-height: 1.7; }
+
+    footer { background: var(--dark); color: #aaa; text-align: center; padding: 28px 20px; font-size: 13px; }
+
+    @media (min-width: 640px) {
+      .step-card { flex-direction: row; text-align: left; }
+      .step-card img { max-width: 240px; flex-shrink: 0; }
+      .expert-inner { flex-direction: row; text-align: left; }
+      .expert-inner img { flex-shrink: 0; }
+    }
+    @media (max-width: 600px) {
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-grid-2 { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO - CLAREAMENTO ÍNTIMO -->
+  <div class="hero">
+    <div class="container">
+      <h1>Volte ao tom natural da sua pele — rosto <em>e região íntima</em> — em menos de 21 Dias.</h1>
+      <ul class="hero-checks">
+        <li>Clareamento total em 21 dias</li>
+        <li>Sem ácidos agressivos</li>
+        <li>Sem receitinhas que não funcionam</li>
+        <li>Sem procedimento caro</li>
+      </ul>
+      <div class="hero-img">
+        <img src="intimo_hero.jpg" alt="Resultado clareamento íntimo" />
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADLINE MELASMA -->
+  <div style="background:#fff; text-align:center;">
+    <h2 class="headline-main">
+      Seu melasma e suas manchas íntimas não são difíceis de tratar.<br />
+      <em>Você só nunca usou o protocolo certo.</em>
+    </h2>
+  </div>
+
+  <!-- LOGO + SEM PROCEDIMENTO -->
+  <div style="background: var(--off-white); padding: 36px 20px; text-align:center;">
+    <img src="img_especialista.jpg" alt="Especialista" style="max-width:320px; margin:0 auto 24px; border-radius:12px;" />
+    <img src="logo_21d.png" alt="Logo 21D" style="max-width:200px; margin:0 auto 24px;" />
+    <div class="badge-line">Sem procedimento.</div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- PROBLEMA -->
+  <div class="problem-section">
+    <div class="container">
+      <h2>Enquanto a indústria vende cremes caros, dermatologistas cobram R$ 800 e lasers pioram suas manchas…</h2>
+      <p>Nós criamos uma <strong>rotina de 21 dias guiada por aplicativo</strong> que está clareando mais de 80% das manchas — no rosto e na região íntima — de qualquer mulher.</p>
+      <p><strong>Sem efeito rebote.</strong></p>
+      <p><strong>Sem gastar muito dinheiro.</strong></p>
+    </div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- ANTES E DEPOIS -->
+  <div class="ba-section">
+    <div class="container">
+      <h2><strong>Veja o antes e depois</strong> de quem segue o protocolo</h2>
+      <p class="ba-sub">Mais de 2.350+ mulheres com a autoestima renovada</p>
+
+      <!-- Melasma -->
+      <p class="ba-section-title">✨ Melasma no rosto</p>
+      <div class="ba-grid">
+        <div class="ba-card">
+          <img src="antes_depois_1.jpg" alt="Antes e depois Juliana" />
+          <p>Juliana, <strong>22 dias de protocolo.</strong></p>
+        </div>
+        <div class="ba-card">
+          <img src="antes_depois_2.jpg" alt="Antes e depois Letícia" />
+          <p>Letícia, <strong>20 dias de protocolo.</strong></p>
+        </div>
+        <div class="ba-card">
+          <img src="antes_depois_3.jpg" alt="Antes e depois Gabriela" />
+          <p>Gabriela, <strong>24 dias de protocolo.</strong></p>
+        </div>
+      </div>
+
+      <!-- Íntimo -->
+      <p class="ba-section-title">🌸 Clareamento Íntimo</p>
+      <div class="ba-grid">
+        <div class="ba-card">
+          <img src="intimo_antes_depois_1.jpg" alt="Antes e depois íntimo Juliana" />
+          <p>Juliana, <strong>22 dias de protocolo.</strong></p>
+        </div>
+        <div class="ba-card">
+          <img src="intimo_antes_depois_2.jpg" alt="Antes e depois íntimo Fabiana e Gabriela" />
+          <p>Fabiana, <strong>17 dias</strong> · Gabriela, <strong>20 dias.</strong></p>
+        </div>
+        <div class="ba-card">
+          <img src="intimo_antes_depois_3.jpg" alt="Antes e depois íntimo Sabrina e Laura" />
+          <p>Sabrina, <strong>14 dias</strong> · Laura, <strong>21 dias.</strong></p>
+        </div>
+      </div>
+
+      <p class="ba-count">Mais de 2.350 mulheres com a autoestima renovada.</p>
+    </div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- DOR -->
+  <div class="pain-section">
+    <div class="container">
+      <h2>Você já tentou de TUDO.</h2>
+      <p>Receitinhas com limão que ardem. Cremes caros de farmácia. Esconder o corpo do seu parceiro. Consultórios de estética que cobram fortunas e não resolvem.</p>
+      <div class="pain-image">
+        <img src="intimo_dor.jpg" alt="Você já tentou de tudo" />
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPOIMENTOS -->
+  <div style="background: var(--off-white); padding: 32px 20px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+    <img src="depoimento_1.jpg" alt="Depoimento 1" style="max-width:480px; border-radius:10px; width:100%;" />
+    <img src="depoimento_2.jpg" alt="Depoimento 2" style="max-width:480px; border-radius:10px; width:100%;" />
+    <img src="depoimento_3.jpg" alt="Depoimento 3" style="max-width:480px; border-radius:10px; width:100%;" />
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- PONTE -->
+  <div class="bridge-section">
+    <div class="container">
+      <h2>Agora eu te pergunto…</h2>
+      <h2 style="margin-bottom:28px;">Se em <em>apenas 21 dias</em> você pudesse clarear suas manchas no rosto <em>e na região íntima,</em> isso mudaria a forma como você se vê?</h2>
+      <div class="answer-box">Se sua resposta for "SIM"…</div>
+      <p>O Desafio 21D é pra você.</p>
+    </div>
+  </div>
+
+  <hr class="bege-divider" />
+
+  <!-- 3 PASSOS -->
+  <div style="background:#fff;">
+    <div class="steps-intro">
+      <h2>Um protocolo científico, estruturado e fácil de seguir através do nosso app.</h2>
+      <h3>Esses são os <em>3 passos para você transformar sua pele em apenas 21D.</em></h3>
+    </div>
+
+    <div class="step-card">
+      <img src="passo_1.jpg" alt="Passo 1" />
+      <div>
+        <h2><strong>Passo 1:</strong> Entendendo sua pele.</h2>
+        <p>Primeiro, <strong>você vai identificar seu tipo de pele e a área a tratar</strong> — rosto (melasma) ou região íntima — para iniciar a rotina correta.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <img src="passo_2.jpg" alt="Passo 2" />
+      <div>
+        <h2><strong>Passo 2:</strong> Resultados em 21 dias.</h2>
+        <ul class="step-timeline">
+          <li><strong>7 dias:</strong> pele mais clara e uniforme.</li>
+          <li><strong>14 dias:</strong> manchas visivelmente suavizadas.</li>
+          <li><strong>21 dias:</strong> pele iluminada, clara e renovada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="bege-divider" />
+
+    <div class="step-card" style="padding-top:32px;">
+      <img src="passo_3.jpg" alt="Passo 3" />
+      <div>
+        <h2><strong>Passo 3:</strong> Manutenção dos resultados.</h2>
+        <p><strong>Consolidar os ganhos</strong>, evitar o efeito rebote e manter a pele uniforme e saudável a longo prazo.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- O QUE VOCÊ RECEBE -->
+  <div class="offer-section">
+    <div class="container">
+      <p class="sub">Tudo que você precisa para transformar sua pele em 21 dias.</p>
+      <div class="offer-images">
+        <img src="recebe_1.jpg" alt="O que você recebe" />
+      </div>
+      <h2 style="margin: 32px 0 16px;">✅ Veja o que você recebe</h2>
+      <div class="offer-images">
+        <img src="recebe_2.jpg" alt="Conteúdo 1" />
+        <img src="recebe_3.jpg" alt="Conteúdo 2" />
+        <img src="recebe_4.jpg" alt="Conteúdo 3" />
+      </div>
+    </div>
+  </div>
+
+  <!-- BÔNUS -->
+  <div class="bonus-section">
+    <div class="container">
+      <h2>🎁 Bônus Exclusivos</h2>
+      <p class="sub">Tudo que você precisa para garantir seu resultado.</p>
+      <div class="bonus-images">
+        <img src="bonus_1.jpg" alt="Bônus 1" />
+        <img src="bonus_2.jpg" alt="Bônus 2" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ESPECIALISTA -->
+  <div class="expert-section">
+    <div class="expert-inner container">
+      <img src="dra_raphaela.jpg" alt="Dra. Raphaela Bevilaqua" />
+      <div>
+        <h2>Eu sou a <strong>Dra. Raphaela Bevilaqua.</strong></h2>
+        <h3>Criadora do Protocolo 21D</h3>
+        <p>Como especialista em saúde da pele, eu via dezenas de mulheres no consultório sofrendo com melasma no rosto e com manchas nas regiões íntimas — duas situações que destroem a autoestima.</p>
+        <p style="margin-top:10px;">Com mais de 8 anos de experiência e mais de 2.350 mulheres atendidas, desenvolvi o Protocolo 21D para democratizar o acesso a um tratamento clínico real, acessível e sem efeito rebote.</p>
+        <p style="margin-top:10px;">Transformei ciência de ponta em um passo a passo simples que você faz em casa.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- PREÇO -->
+  <div class="price-section">
+    <div class="container">
+      <h2>Recapitulando tudo que você vai receber no <strong>Protocolo 21D</strong></h2>
+      <div class="price-recap-img">
+        <img src="recap_preco.jpg" alt="Resumo do conteúdo" />
+      </div>
+      <p class="strike">No total isso tudo deveria custar <strong>R$ 521,00</strong>. Mas hoje você vai ter acesso ao protocolo completo por apenas:</p>
+      <div class="price-box">
+        <div class="installment">12x de R$ 6,93</div>
+        <div class="full-price">ou R$ 67,00 à vista</div>
+        <div class="lifetime">ACESSO VITALÍCIO!!<br />VOCÊ SÓ PAGA UMA ÚNICA VEZ!!!</div>
+      </div>
+      <a href="https://pay.kiwify.com.br/XMxQqYS" class="cta-btn">QUERO CLAREAR MINHAS MANCHAS</a>
+    </div>
+  </div>
+
+  <hr class="gold-divider" />
+
+  <!-- COMO ACESSAR -->
+  <div class="access-section">
+    <div class="container">
+      <h2>Você vai receber o <strong>acesso</strong> agora no seu e-mail</h2>
+      <div class="steps-row">
+        <div class="access-step">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="16" width="60" height="40" rx="4" stroke="#1A1A1A" stroke-width="4" fill="none"/>
+            <polyline points="6,16 36,42 66,16" stroke="#1A1A1A" stroke-width="4" fill="none" stroke-linejoin="round"/>
+          </svg>
+          <h3>ACESSE SEU E-MAIL</h3>
+          <p>Você receberá um e-mail com o Protocolo. Basta clicar e acessar na hora.</p>
+        </div>
+        <div class="access-step">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="36" cy="26" r="18" stroke="#1A1A1A" stroke-width="4" fill="none"/>
+            <polyline points="22,46 10,62 62,62 50,46" stroke="#1A1A1A" stroke-width="4" fill="none" stroke-linejoin="round"/>
+            <line x1="36" y1="16" x2="36" y2="36" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>
+            <polyline points="26,28 36,38 46,28" stroke="#1A1A1A" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <h3>ACESSO AO PRODUTO</h3>
+          <p>Você vai receber todo passo a passo do Protocolo dentro da plataforma.</p>
+        </div>
+        <div class="access-step">
+          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 38 C12 28 20 20 30 20 L30 14 L44 26 L30 38 L30 32 C24 32 18 36 18 44 C18 50 22 55 28 57 C18 55 12 47 12 38 Z" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <circle cx="48" cy="48" r="14" stroke="#1A1A1A" stroke-width="4" fill="none"/>
+            <polyline points="43,48 47,52 54,44" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>TUDO PRONTO!</h3>
+          <p>Todo material do Protocolo é muito fácil de seguir, basta aplicar e ver os resultados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGUNDO CTA -->
+  <div class="second-cta">
+    <div class="container">
+      <div class="price-box">
+        <div class="installment">12x de R$ 6,93</div>
+        <div class="full-price">ou R$ 67,00 à vista</div>
+        <div class="lifetime">ACESSO VITALÍCIO<br />VOCÊ SÓ PAGA UMA ÚNICA VEZ!!!</div>
+      </div>
+      <a href="https://pay.kiwify.com.br/XMxQqYS" class="cta-btn">QUERO CLAREAR MINHAS MANCHAS</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="container">
+      <h2>Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Qual é a forma de pagamento?</summary>
+          <p>Você pode fazer o pagamento pelo pix ou cartão de crédito.</p>
+        </details>
+        <details>
+          <summary>O pagamento é seguro?</summary>
+          <p>Sim, o pagamento é 100% seguro. Utilizamos uma das maiores plataformas de vendas do mundo, a Kiwify.</p>
+        </details>
+        <details>
+          <summary>O protocolo funciona para melasma e clareamento íntimo?</summary>
+          <p>Sim! O Protocolo 21D foi desenvolvido para tratar manchas tanto no rosto (melasma) quanto nas regiões íntimas (axilas, virilha, vulva e ânus). O passo a passo guia você para cada área.</p>
+        </details>
+        <details>
+          <summary>Quanto tempo leva para ver resultados?</summary>
+          <p>Os primeiros resultados aparecem em 7-10 dias, com clareamento máximo em 21 dias.</p>
+        </details>
+        <details>
+          <summary>As manchas somem com o protocolo?</summary>
+          <p>O protocolo foi desenvolvido para clarear até 80% das manchas em 21 dias e manter o controle sem efeito rebote. Você conquista uma pele muito mais clara, uniforme e saudável.</p>
+        </details>
+        <details>
+          <summary>E se não funcionar pra mim?</summary>
+          <p>Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro. Além disso, você terá suporte VIP no WhatsApp para garantir que esteja aplicando tudo do jeito certo.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Copyright © 2024 · Todos os Direitos Reservados · CNPJ: 49.789.057/0001-00 · Belo Horizonte</p>
+  </footer>
+
+</body>
+</html>
