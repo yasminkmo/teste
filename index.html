@@ -48,7 +48,9 @@
     .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 800px; margin: 0 auto 16px; }
     .ba-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 600px; margin: 0 auto 32px; }
     .ba-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-    .ba-card img { width: 100%; height: 260px; object-fit: cover; }
+    .ba-card img { width: 100%; object-fit: cover; }
+    .ba-grid .ba-card img { height: 260px; }
+    .ba-grid-2 .ba-card img, .intimo-grid .ba-card img { height: auto; }
     .ba-card p { padding: 12px; font-weight: 700; font-size: 14px; color: var(--dark); }
     .ba-count { font-size: clamp(18px, 3vw, 26px); font-weight: 900; color: var(--gold); margin: 16px 0 8px; }
     .ba-section-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 3vw, 26px); color: var(--wine); font-weight: 900; margin: 40px 0 20px; }
@@ -185,7 +187,7 @@
   <!-- LOGO + SEM PROCEDIMENTO -->
   <div style="background: var(--off-white); padding: 36px 20px; text-align:center;">
     <img src="img_especialista.jpg" alt="Especialista" style="max-width:320px; margin:0 auto 24px; border-radius:12px;" />
-    <img src="logo_21d.png" alt="Logo 21D" style="max-width:200px; margin:0 auto 24px;" />
+
     <div class="badge-line">Sem procedimento.</div>
   </div>
 
@@ -228,7 +230,7 @@
 
       <!-- Íntimo -->
       <p class="ba-section-title">🌸 Clareamento Íntimo</p>
-      <div class="ba-grid">
+      <div class="ba-grid intimo-grid">
         <div class="ba-card">
           <img src="intimo_antes_depois_1.jpg" alt="Antes e depois íntimo Juliana" />
           <p>Juliana, <strong>22 dias de protocolo.</strong></p>
